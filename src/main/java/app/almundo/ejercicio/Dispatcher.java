@@ -3,44 +3,40 @@ package app.almundo.ejercicio;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Dispatcher {
 	
-	private int cantMaxLlamadas=3;
+	private int cantMaxLlamadas=4;
 	
+	/**
+	 * Se encarga de asignar la llamadas a los operadores libres.
+	 * En este caso se cuenta con 10 operadores libres inicialmente
+	 * @param listadollamadas
+	 */
 	public void dispatchCall(List<Llamada> listadollamadas) {
+		long init = System.currentTimeMillis();//Obtiene el tiempo inicial en que se ejecuta el metodo
 		
-		long init = System.currentTimeMillis();
-		
-		ExecutorService executor = Executors.newFixedThreadPool(cantMaxLlamadas);
+		ExecutorService executorOperador = Executors.newFixedThreadPool(cantMaxLlamadas);//indicamos la cantidad de hilos que se van a disponer para tratar las tareas
 
 		for (Llamada llamadaEntrante : listadollamadas) {
-			Empleado empleadoRunnable=new Empleado(llamadaEntrante,init);
 			
-				executor.execute(empleadoRunnable);
-//				if (executor instanceof ThreadPoolExecutor) {
-//				    System.out.println(
-//				        "Pool size is now " +
-//				        ((ThreadPoolExecutor) executor).getQueue().size()
-//				    );
-//				}
+			Operador operadorRunnable=new Operador(llamadaEntrante,init);
+			
+			executorOperador.execute(operadorRunnable);
 			
 		}
 		
-		executor.shutdown();
+		executorOperador.shutdown();
 		
 		try {
-			executor.awaitTermination(120, TimeUnit.SECONDS);
+			executorOperador.awaitTermination(120, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		long fin = System.currentTimeMillis();	// Instante final del procesamiento
-        System.out.println("Tiempo total de procesamiento: "+(fin-init)/1000+" Segundos");
-	
+		long fin = System.currentTimeMillis();//Toma el tiempo para determinar el tiempo total del hilo principal 
+        System.out.println("Tiempo total de procesamiento ["+(fin-init)/1000+"] Segundos");
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import junit.framework.Assert;
 
@@ -13,7 +12,7 @@ public class DispatcherTest {
 	@Test
 	public void testDispatchCall() {
 		try {
-			int cantLlamadas=10;
+			int cantLlamadas=10;//se indica el numero de llamadas que van a entrar
 	        List<Llamada> listLlamadas=new ArrayList<Llamada>();
 	        
 	        for (int i = 1; i < (cantLlamadas+1); i++) {
@@ -21,8 +20,8 @@ public class DispatcherTest {
 			}
 	        
 	        Dispatcher dispatcher=new Dispatcher();
-
 	        dispatcher.dispatchCall(listLlamadas);
+	        
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
