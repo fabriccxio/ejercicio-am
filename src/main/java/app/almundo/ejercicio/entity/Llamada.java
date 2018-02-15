@@ -1,4 +1,4 @@
-package app.almundo.ejercicio;
+package app.almundo.ejercicio.entity;
 
 public class Llamada {
 	

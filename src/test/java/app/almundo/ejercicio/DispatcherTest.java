@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import app.almundo.ejercicio.dispatcher.Dispatcher;
+import app.almundo.ejercicio.entity.Llamada;
 import junit.framework.Assert;
 
 public class DispatcherTest {

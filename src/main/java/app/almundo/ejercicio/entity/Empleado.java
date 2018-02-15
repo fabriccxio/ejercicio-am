@@ -1,22 +1,24 @@
-package app.almundo.ejercicio;
+package app.almundo.ejercicio.entity;
 
 import java.util.Random;
 
-public class Operador implements Runnable{
+public class Empleado implements Runnable{
 	
 	private Llamada llamada;//llamada a tratar
 	private long initialTime;//tiempo en que inicia el proceso
+	private String tipo;
 	
-	public Operador(Llamada llamada,long initialTime) {
+	public Empleado(Llamada llamada,long initialTime, String tipo) {
 		super();
 		this.llamada = llamada;
 		this.initialTime = initialTime;
+		this.tipo=tipo;
 	}
 	
 	public void run() {
-		System.out.println("Hilo ["+Thread.currentThread().getName()+"] LLamada ["+llamada.getNombre() +"] Empezo en el tiempo [" + (System.currentTimeMillis() - this.initialTime) / 1000	+"] seg");
+		System.out.println("Hilo ["+Thread.currentThread().getName()+"] LLamada ["+llamada.getNombre() +"] Empleado ["+tipo+"] Empezo en el tiempo [" + (System.currentTimeMillis() - this.initialTime) / 1000	+"] seg");
 		procesarLlamada();
-		System.out.println("Hilo ["+Thread.currentThread().getName()+"] LLamada ["+llamada.getNombre() +"] Termino de procesar en el tiempo [" + (System.currentTimeMillis() - this.initialTime) / 1000 + "] seg");
+		System.out.println("Hilo ["+Thread.currentThread().getName()+"] LLamada ["+llamada.getNombre() +"] Empleado ["+tipo+"]Termino de procesar en el tiempo [" + (System.currentTimeMillis() - this.initialTime) / 1000 + "] seg");
 	}
 	
 	/**
